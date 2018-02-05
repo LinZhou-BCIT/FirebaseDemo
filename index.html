@@ -34,6 +34,7 @@
       // The signed-in user info.
       var user = result.user; 
       console.log(user);
+      displayTxt();
       // ...
     }).catch(function(error) {
       // Handle Errors here.
@@ -50,13 +51,15 @@
   var loginBtn = document.getElementById('loginBtn');
   loginBtn.onclick = fblogin;
 
-  var bigOne = document.getElementById('bigOne');
-  var dbRef = firebase.database().ref().child('text');
-  dbRef.on('value', demo);
+  function displayTxt(){
+    var bigOne = document.getElementById('bigOne');
+    var dbRef = firebase.database().ref().child('text');
+    dbRef.on('value', demo);
 
-  function demo(event){
-    console.log(event);
-    bigOne.innerText = event.val().part2;
+    function demo(event){
+      console.log(event);
+      bigOne.innerText = event.val().part2;
+    }
   }
 </script>
     
