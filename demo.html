@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+  
+<h1 id="bigOne"></h1>   
+
+
+<script src="https://www.gstatic.com/firebasejs/4.9.1/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCL8C1-eNA2C7DFltdKVmT7fjRcHcIl8Tg",
+    authDomain: "web-quickstart-998a0.firebaseapp.com",
+    databaseURL: "https://web-quickstart-998a0.firebaseio.com",
+    projectId: "web-quickstart-998a0",
+    storageBucket: "web-quickstart-998a0.appspot.com",
+    messagingSenderId: "792960126290"
+  };
+  firebase.initializeApp(config);
+
+
+  // Auth
+  var provider = new firebase.auth.FacebookAuthProvider();
+  firebase.auth().signInWithPopup(provider).then(function(result) {
+    // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+    var token = result.credential.accessToken;
+    // The signed-in user info.
+    var user = result.user; 
+    console.log(user);
+    // ...
+  }).catch(function(error) {
+    // Handle Errors here.
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    // The email of the user's account used.
+    var email = error.email;
+    // The firebase.auth.AuthCredential type that was used.
+    var credential = error.credential;
+    // ...
+  });
+
+
+
+
+  var bigOne = document.getElementById('bigOne');
+  var dbRef = firebase.database().ref().child('text');
+  dbRef.on('value', demo);
+
+  function demo(event){
+    console.log(event);
+    bigOne.innerText = event.val().part2;
+  }
+</script>
+    
+</body>
+</html>
